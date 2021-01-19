@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +26,10 @@ public class ClientService {
 			setDates(client, LocalDateTime.now());
 			
 			return ResponseEntity.status(201).body(clients.save(client));
+        } catch (DataIntegrityViolationException ex) {
+        	setRepeatedCpfViolation(client);
+        	log.error(ex.getMessage(), ex);
         } catch (Exception ex) {
-        	verifyingRepeatedCpfViolation(client, ex.getMessage());
         	log.error(ex.getMessage(), ex);
         }
 		resetDates(client);
@@ -106,6 +109,10 @@ public class ClientService {
 		client.setDataUltimaAlteracao(LocalDateTime.now());
 	}
 	
+	private void setRepeatedCpfViolation(Client client) {
+		client.setCpf(client.getCpf().concat(" -> Violação: CPF já cadastrado!"));
+	}
+	
 	public ResponseEntity<Client> update(Client client) {
 		try {
 			Optional<Client> clientDb = clients.findById(client.getId());
@@ -117,18 +124,14 @@ public class ClientService {
 			setDates(client, clientDb.get().getDataCadastro());
 			
 			return ResponseEntity.status(204).body(clients.save(client));
+        } catch (DataIntegrityViolationException ex) {
+        	setRepeatedCpfViolation(client);
+        	log.error(ex.getMessage(), ex);
         } catch (Exception ex) {
-        	verifyingRepeatedCpfViolation(client, ex.getMessage());
         	log.error(ex.getMessage(), ex);
         }
 		resetDates(client);
 		
 		return ResponseEntity.unprocessableEntity().body(client);
-	}
-	
-	private void verifyingRepeatedCpfViolation(Client client, String logException) {
-		if (logException.contains("ConstraintViolationException")) {
-			client.setCpf(client.getCpf().concat(" -> Violação: CPF já cadastrado!"));
-    	}
 	}
 }
