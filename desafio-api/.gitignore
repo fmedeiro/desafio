@@ -3,6 +3,9 @@
 /dist
 /tmp
 /out-tsc
+/target
+*.md
+*.factorypath
 
 # dependencies
 /node_modules
