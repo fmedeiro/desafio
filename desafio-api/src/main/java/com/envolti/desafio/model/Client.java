@@ -31,12 +31,19 @@ public class Client {
 	private LocalDateTime dataNascimento;
 	
 	@NotNull
+	@Column(length=100)
 	private String nome;
 	
 	private LocalDateTime dataCadastro;
 	private LocalDateTime dataUltimaAlteracao;
+	
+	@Column(length=50)
 	private String email;
+	
+	@Column(length=50)
 	private String nacionalidade;
+	
+	@Column(length=50)
 	private String naturalidade;
 	private SexEnum sexo;	
 }
