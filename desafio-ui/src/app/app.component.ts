@@ -1,12 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
+import { DesafioService } from './desafio.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  clientes: Array<any>;
+
+  constructor(private desafioService: DesafioService) { }
+
+  ngOnInit() {
+    this.listar();
+  }
+
+  listar() {
+    this.desafioService.listar()
+      .subscribe(response => this.clientes = response);
+  }
+
   @ViewChild('f', { static: false })
   signupForm!: NgForm;
   resposta = '';
