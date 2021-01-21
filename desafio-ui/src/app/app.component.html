@@ -1,8 +1,14 @@
 <div class="container">
-  <hr>
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form (ngSubmit)="onSubmit()" #f="ngForm">
+      <div>
+        <button
+          class="btn btn-primary"
+          type="reset"
+          (click)="(listar())">Listar Registros</button>
+      </div>
+      <app-detalhes [clientes]="clientes"></app-detalhes>
+      <form (ngSubmit)="onSubmit()" #f="ngForm" *ngIf="esconder!==false">
         <div
           id="user-data"
           ngModelGroup="userData"
@@ -99,12 +105,50 @@
               <span class="help-block" *ngIf="!cpf.valid && cpf.touched"><b>Campo CPF é inválido, o seu preenchimento é obrigatório!</b></span>
           </div>
         </div>
-        <button
-          class="btn btn-primary"
-          type="submit"
-          [disabled]="!f.valid">Submit</button>
+        <hr>
+        <div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="!f.valid">Enviar</button>
+        </div>
+        <br>
+        <div>
+          <button
+            class="btn btn-primary"
+            type="reset"
+            (click)="f.resetForm()">Limpar</button>
+        </div>
+        <br>
+<!--         <div>
+          <button
+            class="btn btn-primary"
+            type="submit"
+            (click)="().ngOnInit()">Listar2</button>
+        </div> -->
       </form>
     </div>
   </div>
-  <hr>
+  <div class="row" *ngIf="submitted">
+    <div class="col-xs-12">
+      <hr>
+      <h3>Your Data</h3>
+      <p>Username: {{ cliente.nome }}</p>
+      <p>Mail: {{ cliente.email }}</p>
+      <div class="col-xs-12" *ngFor="let cliente of clientes" #pai>
+        <label>
+          <input
+            type="text"
+            name="cliente"
+            ngModel
+            [value]="cliente">
+            <a href='/api/desafio/listar/{{cliente.id}}' title="Detalhar/Editar"> - {{ cliente.nome }}</a>
+            - <a (click)="cadastrar(cliente)" href="#" title="Cadastrar os dados">Cadastrar</a>
+            - <a (click)="(confirmarExclusao(cliente.nome, cliente))" href="#" title="Deletar o registro">Excluir</a>
+        </label>
+      </div>
+    </div>
+  </div>
 </div>
+<!-- <app-detalhes [testes]="listaTestes"></app-detalhes> -->
+

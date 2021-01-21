@@ -7,10 +7,12 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 
 import { AppComponent } from './app.component';
+import { DetalhesComponent } from './detalhes/detalhes.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DetalhesComponent
   ],
   imports: [
     BrowserModule,

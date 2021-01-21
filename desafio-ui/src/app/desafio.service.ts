@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class DesafioService {
 
-  private api = 'http://localhost:8080';
+  private api = 'http://localhost:4200';
 
   constructor(private http: HttpClient) { }
 
@@ -16,8 +16,16 @@ export class DesafioService {
     return this.http.get<any>(`${this.api}/api/desafio/listar`);
   }
 
+  excluirRegistro(cliente: any): Observable<any> {
+    return this.http.get<any>(`${this.api}/api/desafio/excluir/${cliente.id}`);
+  }
+
+  formulario(): Observable<any> {
+    return this.http.get<any>(`http://localhost:4200`);
+  }
+
   cadastrar(cliente: any): Observable<any> {
-    return this.http.post<any>(`${this.api}/desafio/cadastrar`, cliente);
+    return this.http.post<any>(`${this.api}/api/desafio/cadastrar`, cliente);
   }
 
   listarCliente(): Observable<any> {

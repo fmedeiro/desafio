@@ -1,0 +1,10 @@
+<div class="container">
+  <hr>
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" *ngFor="let cliente of clientes">
+      <a href='/api/desafio/listar/{{cliente.id}}' title="Detalhar/Editar"> - {{ cliente.nome }}</a>
+      - <a (click)="cadastrar(cliente)" href="#" title="Cadastrar os dados">Cadastrar</a>
+      - <a (click)="(confirmarExclusao(cliente.nome, cliente))" href="#" title="Deletar o registro">Excluir</a>
+    </div>
+  </div>
+</div>
