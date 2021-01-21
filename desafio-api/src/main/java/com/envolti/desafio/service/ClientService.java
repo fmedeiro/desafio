@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -94,7 +95,7 @@ public class ClientService {
 	
 	public ResponseEntity<List<Client>> list() {
 		try {
-			List<Client> allClients = clients.findAll();
+			List<Client> allClients = clients.findAll(Sort.by(Sort.Direction.ASC, "nome"));
 			
 			if (allClients.isEmpty()) {
 				return ResponseEntity.notFound().build();
