@@ -1,5 +1,5 @@
 import { NgxMaskModule } from 'ngx-mask';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { DesafioService } from './desafio.service';
@@ -9,7 +9,20 @@ import { DesafioService } from './desafio.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+
+  ngOnDestroy() {
+    this.clientes = [];
+    this.cliente = {
+      cpf: '',
+      dataNascimento: '',
+      nacionalidade: '',
+      naturalidade: '',
+      nome: '',
+      email: '',
+      sexo: 0
+    };
+  }
 
 /*   listaTestes: Array<any> = [
     { nome: 'Ana' },
@@ -65,7 +78,7 @@ export class AppComponent implements OnInit {
 
   irCadastrar() {
       this.esconder = 1;
-      this.formulario();
+      //this.formulario();
   }
 
   printMy(clientes4: Array<any>) {

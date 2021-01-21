@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { DesafioService } from '../desafio.service';
@@ -9,9 +9,12 @@ import { DesafioService } from '../desafio.service';
   styleUrls: ['./detalhes.component.css']
 })
 
-export class DetalhesComponent implements OnInit {
+export class DetalhesComponent implements OnInit, OnDestroy {
 
-  //clientes: [];
+ngOnDestroy() {
+  this.clientes = [];
+}
+
   @Input() clientes: Array<any>;
 
   constructor(private desafioService: DesafioService) { }
