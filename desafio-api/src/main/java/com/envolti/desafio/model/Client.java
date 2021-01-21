@@ -24,7 +24,7 @@ public class Client {
 	private Long id;
 	
 	@NotNull
-	@Column(unique = true, length=11)
+	@Column(unique = true, length=14)
 	private String cpf;
 	
 	@NotNull

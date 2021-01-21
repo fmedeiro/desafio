@@ -1,10 +1,34 @@
 <div class="container">
   <hr>
-  <div class="row">
+  <thead *ngIf="clientes">
+    <tr>
+        <th width="9%">EXCLUIR</th>
+        <th width="16%">NOME</th>
+        <th width="11%">CPF</th>
+<!--         <th width="13%">E-MAIL</th>
+        <th width="13%">DATA DE NASCIMENTO</th>
+        <th width="5%">SEXO</th>
+        <th width="13%">NATURALIDADE</th>
+        <th width="13%">NACIONALIDADE</th> -->
+    </tr>
+  </thead>
+  <tbody *ngFor="let cliente of clientes">
+    <tr>
+        <td width="9%" ><a (click)="(confirmarExclusao(cliente))" href="#" title='Deletar o registro {{ cliente.nome }}, CPF: {{ cliente.cpf }}?'> ===> X</a></td>
+        <td width="16%"><a href='/api/desafio/listar/{{cliente.id}}' title="Detalhar/Editar o registro, CPF: {{ cliente.cpf }}">{{ cliente.nome }}</a></td>
+        <td width="11%"><a href='/api/desafio/listar/{{cliente.id}}' title="Detalhar/Editar o registro, Nome: {{ cliente.nome }}">{{ cliente.cpf }}</a></td>
+<!--         <td width="13%">{{ cliente.email }}</td>
+        <td width="13%">{{ cliente.dataNascimento }}</td>
+        <td width="5%" >{{ cliente.sexo }}</td>
+        <td width="13%">{{ cliente.naturalidade }}</td>
+        <td width="13%">{{ cliente.nacionalidade }}</td> -->
+    </tr>
+  </tbody>
+<!--   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2" *ngFor="let cliente of clientes">
       <a href='/api/desafio/listar/{{cliente.id}}' title="Detalhar/Editar"> - {{ cliente.nome }}</a>
       - <a (click)="cadastrar(cliente)" href="#" title="Cadastrar os dados">Cadastrar</a>
       - <a (click)="(confirmarExclusao(cliente.nome, cliente))" href="#" title="Deletar o registro">Excluir</a>
     </div>
-  </div>
+  </div> -->
 </div>

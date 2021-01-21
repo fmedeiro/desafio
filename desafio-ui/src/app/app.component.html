@@ -7,8 +7,16 @@
           type="reset"
           (click)="(listar())">Listar Registros</button>
       </div>
-      <app-detalhes [clientes]="clientes"></app-detalhes>
-      <form (ngSubmit)="onSubmit()" #f="ngForm" *ngIf="esconder!==false">
+      <br>
+      <div *ngIf="esconder !== 1">
+        <button
+          class="btn btn-primary"
+          type="submit"
+          title="Ir para o formulário de cadastro de clientes"
+          (click)="(irCadastrar())">Cadastrar</button>
+      </div>
+      <app-detalhes [clientes]="clientes" *ngIf="esconder !== 1"></app-detalhes>
+      <form (ngSubmit)="onSubmit()" #f="ngForm" *ngIf="esconder === 1">
         <div
           id="user-data"
           ngModelGroup="userData"
@@ -110,6 +118,7 @@
           <button
             class="btn btn-primary"
             type="submit"
+            title="Os campos Nome, CPF e Data de Nascimento são de preenchimento obrigatório"
             [disabled]="!f.valid">Enviar</button>
         </div>
         <br>
@@ -117,6 +126,7 @@
           <button
             class="btn btn-primary"
             type="reset"
+            title="Limpar o conteúdo de todos os campos"
             (click)="f.resetForm()">Limpar</button>
         </div>
         <br>
@@ -129,7 +139,7 @@
       </form>
     </div>
   </div>
-  <div class="row" *ngIf="submitted">
+  <!-- <div class="row" *ngIf="submitted">
     <div class="col-xs-12">
       <hr>
       <h3>Your Data</h3>
@@ -144,11 +154,9 @@
             [value]="cliente">
             <a href='/api/desafio/listar/{{cliente.id}}' title="Detalhar/Editar"> - {{ cliente.nome }}</a>
             - <a (click)="cadastrar(cliente)" href="#" title="Cadastrar os dados">Cadastrar</a>
-            - <a (click)="(confirmarExclusao(cliente.nome, cliente))" href="#" title="Deletar o registro">Excluir</a>
+            - <a (click)="(confirmarExclusao(cliente))" href="#" title="Deletar o registro">Excluir</a>
         </label>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
-<!-- <app-detalhes [testes]="listaTestes"></app-detalhes> -->
-

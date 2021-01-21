@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { DesafioService } from '../desafio.service';
 
@@ -21,9 +22,10 @@ export class DetalhesComponent implements OnInit {
     .subscribe(response => {cliente = response; console.log("teste 66 = " + cliente.cpf);});
   }
 
-  confirmarExclusao(nome: string, clienteDeletar: any) {
-    if (window.confirm("Tem certeza de que gostaria de deletar o registro com nome: "+nome)) {
-      this.desafioService.excluirRegistro(clienteDeletar).subscribe();
+  confirmarExclusao(clienteDeletar: any) {
+    if (window.confirm("Tem certeza de que gostaria de deletar o registro com nome: "+clienteDeletar.nome+", CPF: "+clienteDeletar.cpf)) {
+      this.desafioService.excluirRegistro(clienteDeletar);//.subscribe();
+      this.desafioService.listar().subscribe;
     }
   }
 

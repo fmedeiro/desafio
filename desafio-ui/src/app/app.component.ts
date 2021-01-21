@@ -1,3 +1,4 @@
+import { NgxMaskModule } from 'ngx-mask';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
@@ -17,12 +18,14 @@ export class AppComponent implements OnInit {
 
   clientes: Array<any>;
   clientes2: Array<any>;
-  esconder: boolean;
+  esconder = 1;
+  i = 0;
+  cpfMasked = '';
 
   constructor(private desafioService: DesafioService) { }
 
   ngBeforeOnInit() {
-    this.esconder = false;
+    //this.esconder = false;
     //this.formulario();
     //this.listar();
   }
@@ -38,8 +41,8 @@ export class AppComponent implements OnInit {
     .subscribe(response => {this.cliente = response; console.log("teste 67 = " + this.cliente.cpf);});
   }
 
-/*   confirmarExclusao(nome: string, clienteDeletar: any) {
-    if (window.confirm("Tem certeza de que gostaria de deletar o registro com nome: "+nome)) {
+/*   confirmarExclusao(clienteDeletar: any) {
+    if (window.confirm("Tem certeza de que gostaria de deletar o registro com nome: "+clienteDeletar.nome)) {
       this.excluirRegistro(clienteDeletar);
     }
   } */
@@ -55,9 +58,14 @@ export class AppComponent implements OnInit {
   listar() {
 /*     this.clientes=<any>this.desafioService.listar()
       .subscribe(response => this.clientes = response); */
-      this.esconder = true;
+      this.esconder = 0;
       this.desafioService.listar()
       .subscribe(response => {this.clientes2 = response; this.printMy(this.clientes2); console.log("teste 0 = " + this.clientes2.length);});
+  }
+
+  irCadastrar() {
+      this.esconder = 1;
+      this.formulario();
   }
 
   printMy(clientes4: Array<any>) {
@@ -79,9 +87,18 @@ export class AppComponent implements OnInit {
   };
   submitted = false;
 
+  formatAndSetCpf(cpfUnmasked: any) {
+    cpfUnmasked=cpfUnmasked.replace(/\D/g,"");
+    cpfUnmasked=cpfUnmasked.replace(/(\d{3})(\d)/,"$1.$2");
+    cpfUnmasked=cpfUnmasked.replace(/(\d{3})(\d)/,"$1.$2");
+    cpfUnmasked=cpfUnmasked.replace(/(\d{3})(\d{1,2})$/,"$1-$2");
+    this.cliente.cpf = cpfUnmasked;
+    cpfUnmasked = '';
+  }
+
   onSubmit() {
     this.submitted = true;
-    this.cliente.cpf = this.signupForm.value.userData.cpf.replace(".", "").replace("-", "");
+    this.formatAndSetCpf(this.signupForm.value.userData.cpf);
     this.cliente.dataNascimento = this.signupForm.value.userData.dataNascimento.concat("T00:00:00");
     this.cliente.nacionalidade = this.signupForm.value.userData.nacionalidade;
     this.cliente.naturalidade = this.signupForm.value.userData.naturalidade;
@@ -92,9 +109,9 @@ export class AppComponent implements OnInit {
     console.log(this.cliente);
 
     this.cadastrar(this.cliente);
-    //this.listar();
     console.log("teste teste = " + this.clientes);
 
     this.signupForm.reset();
+    this.listar();
   }
 }
