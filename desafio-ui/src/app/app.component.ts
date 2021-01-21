@@ -39,13 +39,18 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngBeforeOnInit() {
     //this.esconder = false;
-    //this.formulario();
     //this.listar();
   }
 
   ngOnInit() {
-    //this.formulario();
     //this.listar();
+  }
+
+  confirmarExclusaoTodos() {
+    if (window.confirm("Tem certeza de que gostaria de deletar todos os registros?")) {
+      this.desafioService.excluirTodosRegistros().subscribe();
+      this.desafioService.listar().subscribe;
+    }
   }
 
   cadastrar(cliente) {
@@ -64,10 +69,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.desafioService.excluirRegistro(cliente).subscribe();
   } */
 
-  formulario() {
-    this.desafioService.formulario().subscribe();
-  }
-
   listar() {
 /*     this.clientes=<any>this.desafioService.listar()
       .subscribe(response => this.clientes = response); */
@@ -78,7 +79,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   irCadastrar() {
       this.esconder = 1;
-      //this.formulario();
   }
 
   printMy(clientes4: Array<any>) {

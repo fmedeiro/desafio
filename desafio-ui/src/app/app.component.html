@@ -1,20 +1,39 @@
 <div class="container">
+  <tbody>
+    <tr>
+      <td width="13%" >
+        <div>
+          <button
+            class="btn btn-secundary"
+            type="reset"
+            (click)="(listar())"><b>Listar Registros</b></button>
+        </div>
+      </td>
+      <td width="13%">
+        <div *ngIf="esconder !== 1">
+          <button
+            class="btn btn-primary"
+            type="submit"
+            title="Ir para o formulário de cadastro de clientes"
+            (click)="(irCadastrar())">Cadastrar</button>
+        </div>
+      </td>
+      <td width="13%">
+        <div *ngIf="esconder !== 1">
+          <button
+            class="btn btn-danger"
+            type="reset"
+            title="Apagar todos os clientes cadastrados"
+            (click)="(confirmarExclusaoTodos())">Apagar todos</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <div>
-        <button
-          class="btn btn-primary"
-          type="reset"
-          (click)="(listar())">Listar Registros</button>
-      </div>
+
       <br>
-      <div *ngIf="esconder !== 1">
-        <button
-          class="btn btn-primary"
-          type="submit"
-          title="Ir para o formulário de cadastro de clientes"
-          (click)="(irCadastrar())">Cadastrar</button>
-      </div>
+
       <app-detalhes [clientes]="clientes" *ngIf="esconder !== 1"></app-detalhes>
       <form (ngSubmit)="onSubmit()" #f="ngForm" *ngIf="esconder === 1">
         <div

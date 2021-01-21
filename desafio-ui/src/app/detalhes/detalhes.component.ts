@@ -27,7 +27,7 @@ ngOnDestroy() {
 
   confirmarExclusao(clienteDeletar: any) {
     if (window.confirm("Tem certeza de que gostaria de deletar o registro com nome: "+clienteDeletar.nome+", CPF: "+clienteDeletar.cpf)) {
-      this.desafioService.excluirRegistro(clienteDeletar);//.subscribe();
+      this.desafioService.excluirRegistro(clienteDeletar).subscribe();
       this.desafioService.listar().subscribe;
     }
   }
