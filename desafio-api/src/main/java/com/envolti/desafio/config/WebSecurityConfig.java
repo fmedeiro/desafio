@@ -1,7 +1,5 @@
 package com.envolti.desafio.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,13 +23,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.
-			authorizeRequests()
-			.antMatchers("http://localhost:4200/").hasAnyRole("USER")
-				.anyRequest()
-				.authenticated()
+		http.csrf().disable().authorizeRequests()
+				.anyRequest().authenticated()
 				.and().httpBasic()
-				.authenticationEntryPoint(authEntryPoint);
+				.authenticationEntryPoint(authEntryPoint).and().logout().logoutSuccessUrl("/sair").permitAll();
 	}
 
 	@Autowired
